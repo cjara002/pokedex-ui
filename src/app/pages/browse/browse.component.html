@@ -1,1 +1,44 @@
-<p>browse works!</p>
+<div class="browse-container">
+  <h1>Pokedex</h1>
+
+  @if (pokemonList.isLoading()) {
+    <div class="loading-container">
+      <mat-spinner />
+    </div>
+  }
+
+  @if (pokemonList.error()) {
+    <p class="error-message">Failed to load Pokemon. Please try again.</p>
+  }
+
+  @if (pokemonList.value(); as list) {
+    <div class="pokemon-grid">
+      @for (pokemon of list.results; track pokemon.name) {
+        <mat-card
+          class="pokemon-card"
+          (click)="onPokemonSelected(pokemon.name)"
+        >
+          <mat-card-header>
+            <mat-card-title>
+              {{ pokemon.name | titlecase }}
+            </mat-card-title>
+          </mat-card-header>
+        </mat-card>
+      }
+    </div>
+
+    <div class="pagination">
+      <button
+        mat-raised-button
+        [disabled]="!list.previous"
+        (click)="onPreviousPage()"
+      >
+        Previous
+      </button>
+
+      <button mat-raised-button [disabled]="!list.next" (click)="onNextPage()">
+        Next
+      </button>
+    </div>
+  }
+</div>
