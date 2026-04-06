@@ -14,16 +14,10 @@
   @if (pokemonList.value(); as list) {
     <div class="pokemon-grid">
       @for (pokemon of list.results; track pokemon.name) {
-        <mat-card
-          class="pokemon-card"
-          (click)="onPokemonSelected(pokemon.name)"
-        >
-          <mat-card-header>
-            <mat-card-title>
-              {{ pokemon.name | titlecase }}
-            </mat-card-title>
-          </mat-card-header>
-        </mat-card>
+        <app-pokemon-card
+          [pokemon]="pokemon"
+          (pokemonSelected)="onPokemonSelected($event)"
+        />
       }
     </div>
 

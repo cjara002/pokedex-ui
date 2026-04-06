@@ -7,22 +7,20 @@ import {
 import { PokemonApiService } from '../../services/pokemon-api.service';
 import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { TitleCasePipe } from '@angular/common';
+import { PokemonCardComponent } from "../../components/pokemon-card/pokemon-card.component";
 
 @Component({
   selector: 'app-browse',
   imports: [
     MatProgressSpinnerModule,
-    MatCardModule,
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    TitleCasePipe
-  ],
+    PokemonCardComponent,
+],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

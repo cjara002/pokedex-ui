@@ -1,1 +1,8 @@
-<p>pokemon-card works!</p>
+<mat-card class="pokemon-card">
+<img [src]="spriteUrl()" [alt]="pokemon().name" class="pokemon-sprite"/>
+<mat-card-content>
+    <p class="pokemon-name">
+        {{ pokemon().name | titlecase }}
+    </p>
+</mat-card-content>
+</mat-card>
