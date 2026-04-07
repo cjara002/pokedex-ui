@@ -19,11 +19,14 @@ import { TitleCasePipe } from '@angular/common';
 export class PokemonCardComponent {
   readonly pokemon = input.required<PokemonListItem>();
   readonly pokemonSelected = output<string>();
-readonly spriteUrl = computed(() => {
-  const url = this.pokemon().url;
-  const id = url.split('/').filter(s => s.length > 0).at(-1);
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
-});
+  readonly spriteUrl = computed(() => {
+    const url = this.pokemon().url;
+    const id = url
+      .split('/')
+      .filter((s) => s.length > 0)
+      .at(-1);
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+  });
 
   onCardClick(): void {
     this.pokemonSelected.emit(this.pokemon().name);

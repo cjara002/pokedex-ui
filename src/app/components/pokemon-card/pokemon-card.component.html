@@ -1,8 +1,8 @@
-<mat-card class="pokemon-card">
-<img [src]="spriteUrl()" [alt]="pokemon().name" class="pokemon-sprite"/>
-<mat-card-content>
+<mat-card class="pokemon-card" (click)="onCardClick()">
+  <img [src]="spriteUrl()" [alt]="pokemon().name" class="pokemon-sprite" />
+  <mat-card-content>
     <p class="pokemon-name">
-        {{ pokemon().name | titlecase }}
+      {{ pokemon().name | titlecase }}
     </p>
-</mat-card-content>
+  </mat-card-content>
 </mat-card>

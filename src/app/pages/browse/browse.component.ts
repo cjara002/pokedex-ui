@@ -36,6 +36,7 @@ export class BrowseComponent implements OnInit {
   }
 
   onPokemonSelected(name: string): void {
+    console.log('selected pokemon:', name)
     this.#router.navigate(['/pokemon', name]);
   }
 

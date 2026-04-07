@@ -1,1 +1,58 @@
-<p>detail works!</p>
+<div class="detail-container" [class]="'type-' + primaryType()">
+  <button mat-button class="back-button" (click)="onBack()">
+    ← Back to Pokédex
+  </button>
+
+  @if (pokemon.isLoading()) {
+    <div class="loading-container">
+      <mat-spinner />
+    </div>
+  }
+
+  @if (pokemon.error()) {
+    <p class="error-message">Pokemon not found. Please try again.</p>
+  }
+
+  @if (pokemon.value(); as p) {
+    <div class="pokemon header">
+      <img [src]="spriteUrl()" [alt]="p.name" class="pokemon-sprite" />
+      <div class="pokemon-info">
+        <h1>{{ p.name | titlecase }}</h1>
+        <p class="pokemon id">#{{ p.id }}</p>
+
+        <div class="types-badges">
+          @for (type of p.types; track type.slot) {
+            <mat-chip [class]="'type-chip type-' + type.type.name">
+              {{ type.type.name | titlecase }}
+            </mat-chip>
+          }
+        </div>
+
+        <div class="pokemon-stats">
+            <p><strong>
+                Weight:
+            </strong>{{ p.weight /10}} kg</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-container">
+        <h2>Base Stats</h2>
+        @for (stat of p.stats; track stat.stat.name) {
+<div class="stat-row">
+    <span class="stat-name">
+        {{ stat.stat.name | titlecase }}
+    </span>
+    <span class="stat-value">
+        {{ stat.base_stat }}
+    </span>
+    <div class="stat-bar">
+        <div class="stat-fill" [style.width.%]="(stat.base_stat / 255) * 100">
+
+        </div>
+    </div>
+</div>
+        }
+    </div>
+  }
+</div>
