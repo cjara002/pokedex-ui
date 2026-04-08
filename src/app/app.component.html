@@ -1,1 +1,23 @@
-<router-outlet />
+<mat-toolbar [style.background-color]="navBackground()"
+  [style.transition]="'background-color 0.4s ease'">
+  <img
+    class="nav-brand"
+    src="/pokemon-logo.png"
+    alt="Pokédex"
+    (click)="onLogoClick()"
+  />
+  <span class="spacer"></span>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <input
+      matInput
+      placeholder="Search Pokémon"
+      [value]="searchQuery()"
+      (input)="onSearchInput($event)"
+      (keydown.enter)="onSearch()"
+      />
+      <mat-icon matIconPrefix>search</mat-icon>
+  </mat-form-field>
+</mat-toolbar>
+<main>
+  <router-outlet />
+</main>

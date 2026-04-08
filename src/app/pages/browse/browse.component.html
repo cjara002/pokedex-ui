@@ -1,38 +1,51 @@
 <div class="browse-container">
-  <h1>Pokedex</h1>
+  <div class="browse-layout">
+    <div class="grid-section">
+      @if (pokemonList.isLoading()) {
+        <div class="loading-container">
+          <mat-spinner />
+        </div>
+      }
 
-  @if (pokemonList.isLoading()) {
-    <div class="loading-container">
-      <mat-spinner />
-    </div>
-  }
+      @if (pokemonList.error()) {
+        <p class="error-message">Failed to load Pokemon. Please try again.</p>
+      }
+      @if (pokemonList.value(); as list) {
+        <div class="pokemon-grid">
+          @for (pokemon of list.results; track pokemon.name) {
+            <app-pokemon-card
+              [pokemon]="pokemon"
+              (pokemonSelected)="onPokemonSelected($event)"
+            />
+          }
+        </div>
 
-  @if (pokemonList.error()) {
-    <p class="error-message">Failed to load Pokemon. Please try again.</p>
-  }
+        <div class="pagination">
+          <button
+            mat-raised-button
+            [disabled]="!list.previous"
+            (click)="onPreviousPage()"
+          >
+            Previous
+          </button>
 
-  @if (pokemonList.value(); as list) {
-    <div class="pokemon-grid">
-      @for (pokemon of list.results; track pokemon.name) {
-        <app-pokemon-card
-          [pokemon]="pokemon"
-          (pokemonSelected)="onPokemonSelected($event)"
-        />
+          <button
+            mat-raised-button
+            [disabled]="!list.next"
+            (click)="onNextPage()"
+          >
+            Next
+          </button>
+        </div>
       }
     </div>
-
-    <div class="pagination">
-      <button
-        mat-raised-button
-        [disabled]="!list.previous"
-        (click)="onPreviousPage()"
-      >
-        Previous
-      </button>
-
-      <button mat-raised-button [disabled]="!list.next" (click)="onNextPage()">
-        Next
-      </button>
+    <div class="featured-section">
+      <img
+        [src]="featuredArtworkUrl"
+        alt="Featured Artwork"
+        class="featured-artwork"
+      />
+      <p class="featured-label">Who's that pokemon?</p>
     </div>
-  }
+  </div>
 </div>

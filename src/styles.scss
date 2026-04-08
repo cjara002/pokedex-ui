@@ -17,3 +17,20 @@ html {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+  background-image: url('/modern-pokemon.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@include mat.toolbar-overrides((
+  standard-height: 48px,
+  container-background-color: transparent,
+));
+
+  @include mat.form-field-overrides((
+    container-height: 48px,
+    outlined-hover-outline-color: white
+  ));

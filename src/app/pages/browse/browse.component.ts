@@ -11,14 +11,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PokemonCardComponent } from "../../components/pokemon-card/pokemon-card.component";
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-browse',
   imports: [
-    MatProgressSpinnerModule,
     MatButtonModule,
-    MatInputModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
     PokemonCardComponent,
 ],
   templateUrl: './browse.component.html',
@@ -27,16 +28,19 @@ import { PokemonCardComponent } from "../../components/pokemon-card/pokemon-card
 })
 export class BrowseComponent implements OnInit {
   readonly #pokemonService = inject(PokemonApiService);
+  readonly #themeService = inject(ThemeService);
   readonly #router = inject(Router);
 
   readonly pokemonList = this.#pokemonService.pokemonList;
+  readonly #randomPokemonId = Math.floor(Math.random() * 151) + 1;
+  readonly featuredArtworkUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.#randomPokemonId}.png`;
 
   ngOnInit(): void {
+    this.#themeService.clearType();
     this.#pokemonService.loadPokemonList(20, 0);
   }
 
   onPokemonSelected(name: string): void {
-    console.log('selected pokemon:', name)
     this.#router.navigate(['/pokemon', name]);
   }
 

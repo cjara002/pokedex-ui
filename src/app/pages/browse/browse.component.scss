@@ -1,13 +1,15 @@
 .browse-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px;
+  min-height: 100vh;
+  padding: 20px;
+}
 
-  h1 {
-    text-align: center;
-    margin-bottom: 32px;
-    font-size: 2.5rem;
-  }
+.browse-layout {
+  display: grid;
+  grid-template-columns: 65fr 35fr;
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: start;
 }
 
 .loading-container {
@@ -18,18 +20,46 @@
 
 .pokemon-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 16px;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .pagination {
   display: flex;
   justify-content: center;
   gap: 16px;
+  padding: 16px 0;
 }
 
 .error-message {
   color: red;
   text-align: center;
+}
+
+.featured-section {
+  position: sticky;
+  top: 88px;
+  text-align: center;
+  padding: 24px;
+}
+
+.featured-artwork {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  object-fit: contain;
+  animation: float 3s ease-in-out infinite;
+}
+
+.featured-label {
+  margin-top: 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
 }

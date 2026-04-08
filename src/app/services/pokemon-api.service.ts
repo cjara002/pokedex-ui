@@ -20,7 +20,7 @@ export class PokemonApiService {
     request: () => this.searchParams(),
     loader: ({ request }) =>
       this.#http.get<PaginatedResponse<PokemonListItem>>(
-        `${this.#apiURL}?limit=${request.limit}&offset${request.offset}`,
+        `${this.#apiURL}?limit=${request.limit}&offset=${request.offset}`,
       ),
   });
 
