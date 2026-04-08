@@ -28,7 +28,10 @@
           >
             Previous
           </button>
-
+          <p class="result-count">
+            {{ searchParams().offset + list.results.length }} /
+            {{ list.count }} results
+          </p>
           <button
             mat-raised-button
             [disabled]="!list.next"

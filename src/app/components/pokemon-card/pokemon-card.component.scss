@@ -3,6 +3,7 @@
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   padding: 8px;
+  align-items: center;
 
   &:hover {
     transform: translateY(-4px);

@@ -32,8 +32,9 @@ export class BrowseComponent implements OnInit {
   readonly #router = inject(Router);
 
   readonly pokemonList = this.#pokemonService.pokemonList;
-  readonly #randomPokemonId = Math.floor(Math.random() * 151) + 1;
+  readonly #randomPokemonId = Math.floor(Math.random() * 150) + 1;
   readonly featuredArtworkUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${this.#randomPokemonId}.png`;
+  readonly searchParams = this.#pokemonService.searchParams;
 
   ngOnInit(): void {
     this.#themeService.clearType();

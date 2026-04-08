@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   inject,
   input,
   OnInit,
@@ -13,20 +14,25 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { TitleCasePipe } from '@angular/common';
 import { ThemeService } from '../../services/theme.service';
+import { toObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatCard, MatCardModule } from "@angular/material/card";
 
 @Component({
   selector: 'app-detail',
   imports: [
     MatButtonModule,
+    MatCardModule,
     MatChipsModule,
     MatProgressSpinnerModule,
     TitleCasePipe,
-  ],
+    MatCard
+],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailComponent implements OnInit {
+  readonly #destroyRef = inject(DestroyRef)
   readonly #themeService = inject(ThemeService);
   readonly name = input.required<string>();
 
@@ -37,11 +43,8 @@ export class DetailComponent implements OnInit {
 
   readonly primaryType = computed(() => {
     const pokemonDetail = this.pokemon.value();
-
     if (!pokemonDetail || !pokemonDetail.types?.length) return 'normal';
-    const type = pokemonDetail.types[0].type.name;
-    this.#themeService.setType(type);
-    return type;
+    return pokemonDetail.types[0].type.name;
   });
 
   readonly spriteUrl = computed(() => {
@@ -49,6 +52,12 @@ export class DetailComponent implements OnInit {
     if (!pokemonDetail) return '';
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonDetail.id}.png`;
   });
+
+  constructor() {
+  toObservable(this.primaryType)
+    .pipe(takeUntilDestroyed(this.#destroyRef))
+    .subscribe(type => this.#themeService.setType(type));
+}
 
   ngOnInit(): void {
     this.#pokemonService.selectPokemon(this.name());
