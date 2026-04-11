@@ -12,8 +12,10 @@ import { of } from 'rxjs';
 })
 export class PokemonApiService {
   readonly #http = inject(HttpClient);
-  readonly #apiURL = 'http://localhost:8080/api/pokemon';
-  readonly #agentUrl = 'http://localhost:8080/api/agent'
+  // readonly #apiURLDEV = 'http://localhost:8080/api/pokemon';
+  // readonly #agentUrlDEV = 'http://localhost:8080/api/agent';
+  readonly #apiURLPROD = 'https://pokedex-api-production-fb1a.up.railway.app/pokemon'
+  readonly #agenURLPROD = 'https://pokedex-api-production-fb1a.up.railway.app/agent'
 
   readonly searchParams = signal({ limit: 20, offset: 0 });
   readonly selectedPokemonName = signal<string | null>(null);
@@ -23,14 +25,14 @@ export class PokemonApiService {
     request: () => this.searchParams(),
     loader: ({ request }) =>
       this.#http.get<PaginatedResponse<PokemonListItem>>(
-        `${this.#apiURL}?limit=${request.limit}&offset=${request.offset}`,
+        `${this.#apiURLPROD}?limit=${request.limit}&offset=${request.offset}`,
       ),
   });
 
   readonly pokemonDetail = rxResource({
     request: () => this.selectedPokemonName(),
     loader: ({ request }) =>
-      this.#http.get<Pokemon>(`${this.#apiURL}/${request}`),
+      this.#http.get<Pokemon>(`${this.#apiURLPROD}/${request}`),
   });
 
   loadPokemonList(limit: number = 20, offset: number = 0): void {
@@ -45,7 +47,7 @@ export class PokemonApiService {
     request: () => this.currentQuestion(),
     loader: ({ request }) =>
       request
-    ? this.#http.post<{ answer: string }>(`${this.#agentUrl}/ask`, {question: request })
+    ? this.#http.post<{ answer: string }>(`${this.#agenURLPROD}/ask`, {question: request })
     : of(null)
   })
 
