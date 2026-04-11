@@ -1,0 +1,54 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-icon mat-card-avatar class="advisor-icon">catching_pokemon</mat-icon>
+      <mat-card-title> Pokédex Advisor </mat-card-title>
+  </mat-card-header>
+  <mat-divider />
+  <mat-card-content>
+    <mat-form-field
+      appearance="fill"
+      class="question-input"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>Ask Professor Oak</mat-label>
+      <input
+        matInput
+        [value]="question()"
+        (input)="onInputChange($event)"
+        (keydown.enter)="onSubmit()"
+        placeholder="Who is the best water type pokemon?"
+      />
+      <mat-hint>Ask me to recommend a Pokémon, compare types, or explain stats.</mat-hint>
+    </mat-form-field>
+        @if (agentResource.isLoading()) {
+      <div class="loading-state">
+        <mat-spinner diameter="32" />
+        <p>Professor Oak is thinking...</p>
+      </div>
+    }
+
+    @if (agentResource.value(); as result) {
+      <div class="request-container">
+        <p class="response-text">
+          {{ result.answer }}
+        </p>
+      </div>
+    }
+
+    @if (agentResource.error()) {
+      <p class="error-text">
+        Sorry, the Pokédex advisor is unavailable right now.
+      </p>
+    }
+  </mat-card-content>
+  <mat-card-actions class="chat-actions">
+    <button
+      mat-button="filled"
+      color="primary"
+      (click)="onSubmit()"
+      [disabled]="!question().trim() || agentResource.isLoading()"
+    >
+      <mat-icon>send</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

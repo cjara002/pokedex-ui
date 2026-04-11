@@ -10,8 +10,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { PokemonCardComponent } from "../../components/pokemon-card/pokemon-card.component";
+import { PokemonCardComponent } from '../../components/pokemon-card/pokemon-card.component';
 import { ThemeService } from '../../services/theme.service';
+import { PokemonChatComponent } from "../../components/pokemon-chat/pokemon-chat.component";
 
 @Component({
   selector: 'app-browse',
@@ -21,6 +22,7 @@ import { ThemeService } from '../../services/theme.service';
     MatInputModule,
     MatProgressSpinnerModule,
     PokemonCardComponent,
+    PokemonChatComponent
 ],
   templateUrl: './browse.component.html',
   styleUrl: './browse.component.scss',
@@ -49,7 +51,7 @@ export class BrowseComponent implements OnInit {
     const current = this.#pokemonService.searchParams();
     this.#pokemonService.loadPokemonList(
       current.limit,
-      current.offset + current.limit
+      current.offset + current.limit,
     );
   }
 
@@ -57,7 +59,7 @@ export class BrowseComponent implements OnInit {
     const current = this.#pokemonService.searchParams();
     this.#pokemonService.loadPokemonList(
       current.limit,
-      Math.max(0, current.offset - current.limit)
-    )
+      Math.max(0, current.offset - current.limit),
+    );
   }
 }

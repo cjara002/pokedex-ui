@@ -40,7 +40,6 @@
 .featured-section {
   position: sticky;
   top: 88px;
-  text-align: center;
   padding: 24px;
 }
 
@@ -48,15 +47,9 @@
   width: 100%;
   max-width: 320px;
   height: auto;
+  max-height: 250px;
   object-fit: contain;
   animation: float 3s ease-in-out infinite;
-}
-
-.featured-label {
-  margin-top: 16px;
-  font-size: 1rem;
-  font-weight: 500;
-  opacity: 0.7;
 }
 
 @keyframes float {

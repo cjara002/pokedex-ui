@@ -4,6 +4,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { PaginatedResponse } from '../models/response/PaginatedResponse';
 import { PokemonListItem } from '../models/PokemonListItem';
 import { Pokemon } from '../models/Pokemon';
+import { of } from 'rxjs';
 
 // Registers this as a singleton across the entire app
 @Injectable({
@@ -12,9 +13,11 @@ import { Pokemon } from '../models/Pokemon';
 export class PokemonApiService {
   readonly #http = inject(HttpClient);
   readonly #apiURL = 'http://localhost:8080/api/pokemon';
+  readonly #agentUrl = 'http://localhost:8080/api/agent'
 
   readonly searchParams = signal({ limit: 20, offset: 0 });
   readonly selectedPokemonName = signal<string | null>(null);
+  readonly currentQuestion = signal<string | null>(null);
 
   readonly pokemonList = rxResource({
     request: () => this.searchParams(),
@@ -36,5 +39,17 @@ export class PokemonApiService {
 
   selectPokemon(name: string): void {
     this.selectedPokemonName.set(name);
+  }
+
+  readonly agentResource = rxResource({
+    request: () => this.currentQuestion(),
+    loader: ({ request }) =>
+      request
+    ? this.#http.post<{ answer: string }>(`${this.#agentUrl}/ask`, {question: request })
+    : of(null)
+  })
+
+  askAgent(question: string): void {
+    this.currentQuestion.set(question);
   }
 }
