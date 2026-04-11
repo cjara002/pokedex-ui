@@ -13,7 +13,7 @@ import { of } from 'rxjs';
 export class PokemonApiService {
   readonly #http = inject(HttpClient);
   // readonly #apiURLDEV = 'http://localhost:8080/api/pokemon';
-  // readonly #agentUrlDEV = 'http://localhost:8080/api/agent';
+  // readonly #agentURLDEV = 'http://localhost:8080/api/agent';
   readonly #apiURLPROD = 'https://pokedex-api-production-fb1a.up.railway.app/pokemon'
   readonly #agenURLPROD = 'https://pokedex-api-production-fb1a.up.railway.app/agent'
 
