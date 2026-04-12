@@ -14,8 +14,8 @@ export class PokemonApiService {
   readonly #http = inject(HttpClient);
   // readonly #apiURLDEV = 'http://localhost:8080/api/pokemon';
   // readonly #agentURLDEV = 'http://localhost:8080/api/agent';
-  readonly #apiURLPROD = 'https://pokedex-api-production-fb1a.up.railway.app/pokemon'
-  readonly #agenURLPROD = 'https://pokedex-api-production-fb1a.up.railway.app/agent'
+  readonly #apiURLPROD = 'https://pokedex-api-production-fb1a.up.railway.app/api/pokemon'
+  readonly #agenURLPROD = 'https://pokedex-api-production-fb1a.up.railway.app/api/agent'
 
   readonly searchParams = signal({ limit: 20, offset: 0 });
   readonly selectedPokemonName = signal<string | null>(null);
