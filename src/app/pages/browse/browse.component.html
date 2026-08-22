@@ -13,10 +13,7 @@
       @if (pokemonList.value(); as list) {
         <div class="pokemon-grid">
           @for (pokemon of list.results; track pokemon.name) {
-            <app-pokemon-card
-              [pokemon]="pokemon"
-              (pokemonSelected)="onPokemonSelected($event)"
-            />
+            <app-pokemon-card [pokemon]="pokemon" />
           }
         </div>
 

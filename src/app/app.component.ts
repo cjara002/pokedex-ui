@@ -4,6 +4,7 @@ import {
   computed,
   inject,
   signal,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { ThemeService } from './services/theme.service';
@@ -16,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-root',
@@ -27,11 +29,13 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTooltipModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class AppComponent {
   readonly #themeService = inject(ThemeService);

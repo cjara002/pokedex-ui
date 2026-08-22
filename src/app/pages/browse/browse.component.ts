@@ -5,7 +5,6 @@ import {
   OnInit,
 } from '@angular/core';
 import { PokemonApiService } from '../../services/pokemon-api.service';
-import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -31,7 +30,6 @@ import { PokemonChatComponent } from "../../components/pokemon-chat/pokemon-chat
 export class BrowseComponent implements OnInit {
   readonly #pokemonService = inject(PokemonApiService);
   readonly #themeService = inject(ThemeService);
-  readonly #router = inject(Router);
 
   readonly pokemonList = this.#pokemonService.pokemonList;
   readonly #randomPokemonId = Math.floor(Math.random() * 150) + 1;
@@ -41,10 +39,6 @@ export class BrowseComponent implements OnInit {
   ngOnInit(): void {
     this.#themeService.clearType();
     this.#pokemonService.loadPokemonList(20, 0);
-  }
-
-  onPokemonSelected(name: string): void {
-    this.#router.navigate(['/pokemon', name]);
   }
 
   onNextPage(): void {

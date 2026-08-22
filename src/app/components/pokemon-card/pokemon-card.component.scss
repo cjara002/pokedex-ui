@@ -1,3 +1,15 @@
+.pokemon-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 12px;
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+}
+
 .pokemon-card {
   cursor: pointer;
   text-align: center;
