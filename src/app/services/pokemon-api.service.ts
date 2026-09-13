@@ -5,6 +5,7 @@ import { PaginatedResponse } from '../models/response/PaginatedResponse';
 import { PokemonListItem } from '../models/PokemonListItem';
 import { Pokemon } from '../models/Pokemon';
 import { of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 // Registers this as a singleton across the entire app
 @Injectable({
@@ -12,10 +13,8 @@ import { of } from 'rxjs';
 })
 export class PokemonApiService {
   readonly #http = inject(HttpClient);
-  // readonly #apiURLDEV = 'http://localhost:8080/api/pokemon';
-  // readonly #agentURLDEV = 'http://localhost:8080/api/agent';
-  readonly #apiURLPROD = 'https://pokedex-api-production-fb1a.up.railway.app/api/pokemon'
-  readonly #agenURLPROD = 'https://pokedex-api-production-fb1a.up.railway.app/api/agent'
+  readonly #apiURL = environment.apiURL;
+  readonly #agentURL = environment.agentURL;
 
   readonly searchParams = signal({ limit: 20, offset: 0 });
   readonly selectedPokemonName = signal<string | null>(null);
@@ -25,14 +24,14 @@ export class PokemonApiService {
     request: () => this.searchParams(),
     loader: ({ request }) =>
       this.#http.get<PaginatedResponse<PokemonListItem>>(
-        `${this.#apiURLPROD}?limit=${request.limit}&offset=${request.offset}`,
+        `${this.#apiURL}?limit=${request.limit}&offset=${request.offset}`,
       ),
   });
 
   readonly pokemonDetail = rxResource({
     request: () => this.selectedPokemonName(),
     loader: ({ request }) =>
-      this.#http.get<Pokemon>(`${this.#apiURLPROD}/${request}`),
+      this.#http.get<Pokemon>(`${this.#apiURL}/${request}`),
   });
 
   loadPokemonList(limit: number = 20, offset: number = 0): void {
@@ -47,7 +46,7 @@ export class PokemonApiService {
     request: () => this.currentQuestion(),
     loader: ({ request }) =>
       request
-    ? this.#http.post<{ answer: string }>(`${this.#agenURLPROD}/ask`, {question: request })
+    ? this.#http.post<{ answer: string }>(`${this.#agentURL}/ask`, {question: request })
     : of(null)
   })
 
