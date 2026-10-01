@@ -4,7 +4,6 @@ import {
   computed,
   inject,
   signal,
-  ViewEncapsulation,
 } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { ThemeService } from './services/theme.service';
@@ -35,7 +34,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class AppComponent {
   readonly #themeService = inject(ThemeService);
