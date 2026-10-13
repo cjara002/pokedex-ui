@@ -5,61 +5,66 @@
     </button>
   </div>
 
-  @if (pokemon.isLoading()) {
-    <div class="loading-container">
-      <mat-spinner />
-    </div>
-  }
-
-  @if (pokemon.error()) {
-    <p class="error-message">Pokemon not found. Please try again.</p>
-  }
-
-  @if (pokemon.value(); as p) {
-    <mat-card>
-      <mat-card-header class="justify-center">
-        <mat-card-title>{{ p.name | titlecase }}</mat-card-title>
-        <mat-card-subtitle>#{{ p.id }}</mat-card-subtitle>
-      </mat-card-header>
-      <div class="justify-center">
-        <img [src]="spriteUrl()" [alt]="p.name" class="pokemon-sprite" />
+  <div class="detail-content">
+    @if (pokemon.isLoading()) {
+      <div class="loading-container">
+        <mat-spinner />
       </div>
-      <mat-card-content>
+    }
+
+    @if (pokemon.error()) {
+      <div class="empty-state">
+        <img src="/img/pikachu_lost.png" alt="Lost Pikachu" />
+        <p>Pokémon not found. Please try another search.</p>
+      </div>
+    }
+
+    @if (pokemon.value(); as p) {
+      <mat-card>
+        <mat-card-header class="justify-center">
+          <mat-card-title>{{ p.name | titlecase }}</mat-card-title>
+          <mat-card-subtitle>#{{ p.id }}</mat-card-subtitle>
+        </mat-card-header>
         <div class="justify-center">
-          <div class="types-badges">
-            @for (type of p.types; track type.slot) {
-              <mat-chip [class]="'type-chip type-' + type.type.name">
-                {{ type.type.name | titlecase }}
-              </mat-chip>
+          <img [src]="spriteUrl()" [alt]="p.name" class="pokemon-sprite" />
+        </div>
+        <mat-card-content>
+          <div class="justify-center">
+            <div class="types-badges">
+              @for (type of p.types; track type.slot) {
+                <mat-chip [class]="'type-chip type-' + type.type.name">
+                  {{ type.type.name | titlecase }}
+                </mat-chip>
+              }
+            </div>
+          </div>
+          <div class="justify-center">
+            <div class="pokemon-stats">
+              <p>Weight: {{ p.weight / 10 }} kg</p>
+            </div>
+          </div>
+
+          <div class="stats-container">
+            <h2>Base Stats</h2>
+            @for (stat of p.stats; track stat.stat.name) {
+              <div class="stat-row">
+                <span class="stat-name">
+                  {{ stat.stat.name | titlecase }}
+                </span>
+                <span class="stat-value">
+                  {{ stat.base_stat }}
+                </span>
+                <div class="stat-bar">
+                  <div
+                    class="stat-fill"
+                    [style.width.%]="(stat.base_stat / 255) * 100"
+                  ></div>
+                </div>
+              </div>
             }
           </div>
-        </div>
-        <div class="justify-center">
-          <div class="pokemon-stats">
-            <p>Weight: {{ p.weight / 10 }} kg</p>
-          </div>
-        </div>
-
-        <div class="stats-container">
-          <h2>Base Stats</h2>
-          @for (stat of p.stats; track stat.stat.name) {
-            <div class="stat-row">
-              <span class="stat-name">
-                {{ stat.stat.name | titlecase }}
-              </span>
-              <span class="stat-value">
-                {{ stat.base_stat }}
-              </span>
-              <div class="stat-bar">
-                <div
-                  class="stat-fill"
-                  [style.width.%]="(stat.base_stat / 255) * 100"
-                ></div>
-              </div>
-            </div>
-          }
-        </div>
-      </mat-card-content>
-    </mat-card>
-  }
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
 </div>

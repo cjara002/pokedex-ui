@@ -1,0 +1,31 @@
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 48px); // fill the space below the toolbar
+  box-sizing: border-box;
+  padding: 48px 16px;
+  text-align: center;
+
+  img {
+    width: min(90vw, 640px);
+    height: auto;
+  }
+
+  h1 {
+    margin: 16px 0 0;
+    font-size: 48px;
+  }
+
+  p {
+    margin-bottom: 24px;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size: 18px;
+    color: #212121;
+    // background straddles the white/red split, so give the text its own backdrop
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+}

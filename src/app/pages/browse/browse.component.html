@@ -8,7 +8,10 @@
       }
 
       @if (pokemonList.error()) {
-        <p class="error-message">Failed to load Pokemon. Please try again.</p>
+        <div class="empty-state">
+          <img src="/img/pikachu_lost.png" alt="Lost Pikachu" />
+          <p>No Pokémon found. Please try again.</p>
+        </div>
       }
       @if (pokemonList.value(); as list) {
         <div class="pokemon-grid">
